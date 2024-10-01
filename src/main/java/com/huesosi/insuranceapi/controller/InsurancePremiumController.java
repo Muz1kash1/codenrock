@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/insurance-premium")
 @RequiredArgsConstructor
-class InsurancePremiumController {
-  private final InsurancePremiumService insurancePremiumService;
+public class InsurancePremiumController {
+    private final InsurancePremiumService insurancePremiumService;
 
-  @PostMapping("/calculate-premium")
-  public ResponseEntity<CalculatedPremiumInfo> calculatePremium(@RequestBody
-                                                                PremiumCalculationRequest request) {
-    return ResponseEntity.ok(insurancePremiumService.calculatePremium(request));
-  }
+    @PostMapping("/calculate-premium")
+    public ResponseEntity<CalculatedPremiumInfo> calculatePremium(@RequestBody
+                                                                  PremiumCalculationRequest request) {
+        return ResponseEntity.ok(insurancePremiumService.calculatePremium(request));
+    }
 }

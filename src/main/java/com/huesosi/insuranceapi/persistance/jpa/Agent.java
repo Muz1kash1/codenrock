@@ -1,13 +1,22 @@
 package com.huesosi.insuranceapi.persistance.jpa;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.GeneratedValue;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +33,7 @@ public class Agent {
     @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = true)
     private String middleName;
 
     @ManyToOne

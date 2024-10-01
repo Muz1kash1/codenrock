@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="1" author="tokmakovanton">
+        <createTable tableName="agent_department">
+            <column name="department_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="abbreviation" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="category">
+            <column name="category_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="abbreviation" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="contractor_type">
+            <column name="contractor_type_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="abbreviation" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="insurant_type">
+            <column name="insurant_type_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="abbreviation" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product_type">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="abbreviation" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product_insurance">
+            <column name="product_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_type_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_product_insurance_product_type"
+                             referencedTableName="product_type" referencedColumnNames="id"/>
+            </column>
+            <column name="category_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_product_insurance_category"
+                             referencedTableName="category" referencedColumnNames="category_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="status_contract">
+            <column name="status_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="abbreviation" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="agent">
+            <column name="agent_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="VARCHAR(255)"/>
+            <column name="department_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_agent_department"
+                             referencedTableName="agent_department" referencedColumnNames="department_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="agent_contract">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="commission_rate" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="DATE"/>
+            <column name="start_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agent_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_agent_contract_agent"
+                             referencedTableName="agent" referencedColumnNames="agent_id"/>
+            </column>
+            <column name="product_type_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_agent_contract_product_type"
+                             referencedTableName="product_type" referencedColumnNames="id"/>
+            </column>
+            <column name="status_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_agent_contract_status"
+                             referencedTableName="status_contract" referencedColumnNames="status_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="contractor">
+            <column name="contractor_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="VARCHAR(255)"/>
+            <column name="birth_date" type="DATE"/>
+            <column name="legal_entity_name" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="inn" type="SMALLINT">
+                <constraints unique="true"/>
+            </column>
+            <column name="contractor_type_id" type="INT">
+                <constraints foreignKeyName="fk_contractor_contractor_type"
+                             referencedTableName="contractor_type" referencedColumnNames="contractor_type_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="insurance_contract">
+            <column name="insurance_contract_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="creation_date" type="TIMESTAMP"/>
+            <column name="signing_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="insurance_premium" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="insurance_amount" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="commission_rate" type="FLOAT"/>
+            <column name="commission_amount" type="FLOAT"/>
+            <column name="product_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_insurance_contract_product"
+                             referencedTableName="product_insurance" referencedColumnNames="product_id"/>
+            </column>
+            <column name="agent_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_insurance_contract_agent"
+                             referencedTableName="agent" referencedColumnNames="agent_id"/>
+            </column>
+            <column name="status_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_insurance_contract_status"
+                             referencedTableName="status_contract" referencedColumnNames="status_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="contractor_contract">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="contractor_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_contractor_contract_contractor"
+                             referencedTableName="contractor" referencedColumnNames="contractor_id"/>
+            </column>
+            <column name="insurance_contract_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_contractor_contract_insurance_contract"
+                             referencedTableName="insurance_contract" referencedColumnNames="insurance_contract_id"/>
+            </column>
+            <column name="insurant_type_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_contractor_contract_insurant_type"
+                             referencedTableName="insurant_type" referencedColumnNames="insurant_type_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="insurance_risk">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="insurance_premium" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="insurance_amount" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_insurance_risk_category"
+                             referencedTableName="category" referencedColumnNames="category_id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product_risk">
+            <column name="insurance_product_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_product_risk_product_insurance"
+                             referencedTableName="product_insurance" referencedColumnNames="product_id"/>
+            </column>
+            <column name="risk_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_product_risk_insurance_risk"
+                             referencedTableName="insurance_risk" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="metadata">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_metadata_product"
+                             referencedTableName="product_insurance" referencedColumnNames="product_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,14 +1,17 @@
 package com.huesosi.insuranceapi.persistance.jpa;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +33,7 @@ public class ProductInsurance {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "product_risk",
             joinColumns = @JoinColumn(name = "insurance_product_id"),

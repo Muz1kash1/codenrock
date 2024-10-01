@@ -1,14 +1,25 @@
 package com.huesosi.insuranceapi.persistance.jpa;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.GeneratedValue;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +30,7 @@ public class InsuranceContract {
     @Column(name = "insurance_contract_id")
     private UUID id;
 
+    @CreationTimestamp
     private LocalDateTime creationDate;
 
     @Column(nullable = false)
@@ -31,14 +43,16 @@ public class InsuranceContract {
     private LocalDateTime endDate;
 
     @Column(nullable = false)
-    private double insurancePremium;
+    private BigDecimal insurancePremium;
 
     @Column(nullable = false)
-    private double insuranceAmount;
+    private BigDecimal insuranceAmount;
 
-    // todo расчитать эти 2 полня на основе других
-    private float commissionRate;
-    private float commissionAmount;
+    @Column(nullable = true)
+    private BigDecimal commissionRate;
+
+    @Column(nullable = true)
+    private BigDecimal commissionAmount;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
