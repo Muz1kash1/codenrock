@@ -7,7 +7,7 @@
 
     <changeSet id="1" author="tokmakovanton">
         <createTable tableName="agent_department">
-            <column name="department_id" type="INT" autoIncrement="true">
+            <column name="department_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
@@ -17,7 +17,7 @@
         </createTable>
 
         <createTable tableName="category">
-            <column name="category_id" type="INT" autoIncrement="true">
+            <column name="category_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -29,7 +29,7 @@
         </createTable>
 
         <createTable tableName="contractor_type">
-            <column name="contractor_type_id" type="INT" autoIncrement="true">
+            <column name="contractor_type_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -41,7 +41,7 @@
         </createTable>
 
         <createTable tableName="insurant_type">
-            <column name="insurant_type_id" type="INT" autoIncrement="true">
+            <column name="insurant_type_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
@@ -51,7 +51,7 @@
         </createTable>
 
         <createTable tableName="product_type">
-            <column name="id" type="INT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -69,18 +69,18 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="product_type_id" type="INT">
+            <column name="product_type_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_product_insurance_product_type"
                              referencedTableName="product_type" referencedColumnNames="id"/>
             </column>
-            <column name="category_id" type="INT">
+            <column name="category_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_product_insurance_category"
                              referencedTableName="category" referencedColumnNames="category_id"/>
             </column>
         </createTable>
 
         <createTable tableName="status_contract">
-            <column name="status_id" type="INT" autoIncrement="true">
+            <column name="status_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -102,7 +102,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="middle_name" type="VARCHAR(255)"/>
-            <column name="department_id" type="INT">
+            <column name="department_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_agent_department"
                              referencedTableName="agent_department" referencedColumnNames="department_id"/>
             </column>
@@ -126,11 +126,11 @@
                 <constraints nullable="false" foreignKeyName="fk_agent_contract_agent"
                              referencedTableName="agent" referencedColumnNames="agent_id"/>
             </column>
-            <column name="product_type_id" type="INT">
+            <column name="product_type_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_agent_contract_product_type"
                              referencedTableName="product_type" referencedColumnNames="id"/>
             </column>
-            <column name="status_id" type="INT">
+            <column name="status_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_agent_contract_status"
                              referencedTableName="status_contract" referencedColumnNames="status_id"/>
             </column>
@@ -151,10 +151,10 @@
             <column name="legal_entity_name" type="VARCHAR(255)">
                 <constraints unique="true"/>
             </column>
-            <column name="inn" type="SMALLINT">
+            <column name="inn" type="VARCHAR(255)">
                 <constraints unique="true"/>
             </column>
-            <column name="contractor_type_id" type="INT">
+            <column name="contractor_type_id" type="BIGINT">
                 <constraints foreignKeyName="fk_contractor_contractor_type"
                              referencedTableName="contractor_type" referencedColumnNames="contractor_type_id"/>
             </column>
@@ -190,7 +190,7 @@
                 <constraints nullable="false" foreignKeyName="fk_insurance_contract_agent"
                              referencedTableName="agent" referencedColumnNames="agent_id"/>
             </column>
-            <column name="status_id" type="INT">
+            <column name="status_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_insurance_contract_status"
                              referencedTableName="status_contract" referencedColumnNames="status_id"/>
             </column>
@@ -208,14 +208,14 @@
                 <constraints nullable="false" foreignKeyName="fk_contractor_contract_insurance_contract"
                              referencedTableName="insurance_contract" referencedColumnNames="insurance_contract_id"/>
             </column>
-            <column name="insurant_type_id" type="INT">
+            <column name="insurant_type_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_contractor_contract_insurant_type"
                              referencedTableName="insurant_type" referencedColumnNames="insurant_type_id"/>
             </column>
         </createTable>
 
         <createTable tableName="insurance_risk">
-            <column name="id" type="INT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -227,7 +227,7 @@
             <column name="insurance_amount" type="DECIMAL(19, 2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="category_id" type="INT">
+            <column name="category_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_insurance_risk_category"
                              referencedTableName="category" referencedColumnNames="category_id"/>
             </column>
@@ -238,14 +238,14 @@
                 <constraints nullable="false" foreignKeyName="fk_product_risk_product_insurance"
                              referencedTableName="product_insurance" referencedColumnNames="product_id"/>
             </column>
-            <column name="risk_id" type="INT">
+            <column name="risk_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_product_risk_insurance_risk"
                              referencedTableName="insurance_risk" referencedColumnNames="id"/>
             </column>
         </createTable>
 
         <createTable tableName="metadata">
-            <column name="id" type="INT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
