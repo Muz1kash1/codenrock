@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: InsuranceApi
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/soglasie_insurance
+    username: postgres
+    password: password
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-1.xml
+    enabled: true
+
+  jpa:
+    open-in-view: false
