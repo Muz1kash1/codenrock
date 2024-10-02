@@ -13,6 +13,7 @@ public class AuthorizedControllerExample {
 
   /**
    * Кто угодно.
+   *
    * @return строка
    */
   @GetMapping("/anyone")

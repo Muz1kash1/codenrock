@@ -1,5 +1,9 @@
 server:
   port: 8081
+keycloak:
+  url: http://localhost:8080/realms/Tech
+  client-id: external-client
+  client-secret: secret
 
 spring:
   application:

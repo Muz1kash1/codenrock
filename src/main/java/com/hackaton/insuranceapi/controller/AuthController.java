@@ -18,8 +18,8 @@ public class AuthController {
   private final AuthorizationService authorizationService;
 
   @PostMapping("/login")
-  public ResponseEntity<TokenPair> login(@RequestBody UserCredentials credentials) {
-    return ResponseEntity.ok(authorizationService.login(credentials));
+  public TokenPair login(@RequestBody UserCredentials credentials) {
+    return authorizationService.login(credentials);
   }
 
   @PostMapping("/logout")
